@@ -1,6 +1,6 @@
 # Airbus Digital Aircraft Delivery: Telemetry Ingestion & Compliance Pipeline
 
-[![CI/CD Pipeline](https://github.com/VaishnavSreekumar/airbus-digital-aircraft-delivery/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/VaishnavSreekumar/airbus-digital-aircraft-delivery/actions)
+[![CI/CD Pipeline](https://github.com/VaishnavSreekumar/aero-stream-core/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/VaishnavSreekumar/aero-stream-core/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Aviation Standard: DO-260B](https://img.shields.io/badge/Aviation%20Standard-RTCA%20DO--260B-00205B.svg)](https://www.rtca.org)
 [![Node.js](https://img.shields.io/badge/Node.js-v20%2B-339933.svg?logo=node.js)](https://nodejs.org)
@@ -168,8 +168,8 @@ Example frame decoded by the pipeline:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/VaishnavSreekumar/airbus-digital-aircraft-delivery.git
-cd airbus-digital-aircraft-delivery
+git clone https://github.com/VaishnavSreekumar/aero-stream-core.git
+cd aero-stream-core
 
 # 2. Run all backend and analytics unit tests
 npm test
