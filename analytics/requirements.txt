@@ -1,0 +1,2 @@
+# Airbus Flight Test Analytics Requirements
+pytest>=8.0.0

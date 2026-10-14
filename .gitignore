@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Production Builds
+dist/
+build/
+
+# Logs & Environment
+*.log
+npm-debug.log*
+.env
+.DS_Store
+
+# Local Mock Storage
+aws-mock/mock_data/

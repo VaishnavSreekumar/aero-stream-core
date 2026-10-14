@@ -1,0 +1,77 @@
+name: Airbus Delivery Telemetry Pipeline CI/CD
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  unit-and-integration-tests:
+    name: Backend & Analytics Test Suites
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js v20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: backend/package.json
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies & Test Compliance Engine
+        run: |
+          cd analytics
+          python -m unittest test_compliance.py -v
+
+      - name: Install Backend Dependencies & Run Jest Tests
+        run: |
+          cd backend
+          npm install
+          npm test
+
+      - name: Verify Frontend Production Build
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+  docker-build-verification:
+    name: Multi-Stage Docker Verification
+    needs: unit-and-integration-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Validate Docker Compose Configuration
+        run: |
+          docker compose config
+
+      - name: Build Backend Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: backend/Dockerfile
+          push: false
+          tags: airbus-telemetry-backend:latest
+
+      - name: Build Frontend Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: frontend/Dockerfile
+          push: false
+          tags: airbus-delivery-dashboard:latest
